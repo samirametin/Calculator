@@ -14,16 +14,7 @@ def divide(a, b):
     return a / b
 
 
-def calculator(first, second, operation):
-    if operation == "+":
-        result = add(first, second)
-    elif operation == "-":
-        result = subtract(first, second)
-    elif operation == "*":
-        result = multiply(first, second)
-    elif operation == "/":
-        result = divide(first, second)
-    return result
+operations = {"+": add, "-": subtract, "*": multiply, "/": divide}
 
 
 is_go_on = True
@@ -36,11 +27,13 @@ while is_go_on:
     elif do_again == "e":
         print("Thanks for using our calculator! <3 <3 <3")
         break
-    print("+", "-", "*", "/", sep="\n")
-    operation = input("Pick an operation: ")
+    for key in operations:
+        print(key)
+    operation_sign = input("Pick an operation: ")
     second_number = float(input("What's the next number?: "))
-    answer = calculator(first_number, second_number, operation)
-    print(f"{first_number} {operation} {second_number} = {answer}")
+    calculator_function = operations[operation_sign]
+    answer = calculator_function(first_number, second_number)
+    print(f"{first_number} {operation_sign} {second_number} = {answer}")
     do_again = input(
         f"Type 'y' to continue calculating with {answer}, type 'n' to start a new calculation or type 'e' for end calculation: "
     )
